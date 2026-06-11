@@ -93,10 +93,12 @@ export function useSimulationControls() {
   // ── Periodic optimizer run ────────────────────────────────────────────────
 
   const runOptimizer = useCallback(async () => {
-    if (trains.length === 0) return
+    // Always read live state — avoids stale closure from setInterval
+    const state = useStore.getState()
+    const currentTrains = state.trains
+    if (currentTrains.length === 0) return
     try {
       const ALL_SECTIONS = SECTIONS.map(s => s.id)   // ['s1','s2','s3','s4','s5']
-      const state = useStore.getState()
       const activeDisruptions: Disruption[] = state.disruptions
       const congestion: SectionCongestion[] = state.congestion
 
@@ -122,7 +124,7 @@ export function useSimulationControls() {
 
       // Build train payload — extend remaining_route to end of corridor
       const trainsPayload: Record<string, unknown> = {}
-      trains.forEach((t, i) => {
+      currentTrains.forEach((t, i) => {
         const idx = ALL_SECTIONS.indexOf(t.section_id)
         const remaining = idx >= 0
           ? (t.direction === 'UP'
@@ -155,7 +157,7 @@ export function useSimulationControls() {
         addToast('info', `🔧 ${result.decisions.length} recommendation${result.decisions.length > 1 ? 's' : ''} ready`)
       }
     } catch { /* silently ignore */ }
-  }, [trains, tick, setDecisions, addImpact, addToast])
+  }, [setDecisions, addImpact, addToast])
 
   // ── Lifecycle ─────────────────────────────────────────────────────────────
 

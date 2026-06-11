@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     # ── Auth (JWT) ───────────────────────────────────────────────────────────
     jwt_secret:       str   = "change-me-in-production-at-least-32-chars!!"
     jwt_algorithm:    str   = "HS256"
-    jwt_expire_min:   int   = 60        # 1 hour default
+    jwt_expire_min:   int   = 1440      # 24 hours — safe for demo sessions
     # Demo credentials (replace with real user store in prod)
     demo_username:    str   = "controller"
     demo_password:    str   = "marg2026"
