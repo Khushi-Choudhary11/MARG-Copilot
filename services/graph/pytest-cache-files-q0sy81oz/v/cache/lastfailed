@@ -1,0 +1,12 @@
+{
+  "tests/test_graph.py::TestLoopLine::test_cannot_hold_passenger_no_electrification": true,
+  "tests/test_graph.py::TestStation::test_halt_time_a1_passenger": true,
+  "tests/test_graph.py::TestStation::test_halt_time_a1_goods": true,
+  "tests/test_graph.py::TestStation::test_to_node_attrs_returns_dict": true,
+  "tests/test_graph.py::TestTrackSection::test_effective_speed_weather_factor": true,
+  "tests/test_graph.py::TestTrackSection::test_effective_speed_caution_order": true,
+  "tests/test_graph.py::TestTrackSection::test_transit_time_weather_increases_travel": true,
+  "tests/test_graph.py::TestCorridorGraphRuntimeUpdates::test_set_caution_order_limits_travel_speed": true,
+  "tests/test_graph.py::TestCorridorGraphRuntimeUpdates::test_clear_caution_order_removes_restriction": true,
+  "tests/test_graph.py::TestShortestPath::test_congested_section_increases_travel_time": true
+}
