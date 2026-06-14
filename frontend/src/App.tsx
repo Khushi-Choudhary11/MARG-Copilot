@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Dashboard from "./pages/Dashboard";
 import Twin from "./pages/Twin";
@@ -7,6 +7,7 @@ import TrainDetail from "./pages/TrainDetail";
 import Analytics from "./pages/Analytics";
 import Controller from "./pages/Controller";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import AiAssistant from "./components/AiAssistant";
 import { useAuth } from "./auth/AuthContext";
@@ -31,7 +32,9 @@ function App() {
   if (!user) {
     return (
       <Routes>
-        <Route path="*" element={<Login />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );
   }
