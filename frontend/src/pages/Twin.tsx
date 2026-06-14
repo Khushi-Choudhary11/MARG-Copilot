@@ -16,6 +16,9 @@ export default function Twin({ snapshot }: { snapshot: TwinSnapshot | null }) {
   const navigate = useNavigate();
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const running = snapshot?.trains.filter((t) => t.status === "running") ?? [];
+  const scheduled = snapshot?.trains.filter((t) => t.status === "scheduled") ?? [];
+  const completed = snapshot?.trains.filter((t) => t.status === "completed") ?? [];
+  const total = snapshot?.trains.length ?? 0;
 
   return (
     <div className="flex flex-col gap-5">
@@ -51,7 +54,10 @@ export default function Twin({ snapshot }: { snapshot: TwinSnapshot | null }) {
       </div>
 
       <div className="glass rounded-2xl p-4">
-        <h2 className="font-semibold text-slate-200 mb-3">Trains in Section ({running.length})</h2>
+        <h2 className="font-semibold text-slate-200 mb-1">Trains in Section ({running.length})</h2>
+        <p className="text-xs text-slate-500 mb-3">
+          {scheduled.length} waiting to depart · {completed.length} arrived today · {total} trains on corridor
+        </p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

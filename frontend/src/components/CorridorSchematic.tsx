@@ -45,6 +45,24 @@ export default function CorridorSchematic({
   };
 
   const running = trains.filter((t) => t.status === "running");
+  const scheduled = trains.filter((t) => t.status === "scheduled");
+  const completed = trains.filter((t) => t.status === "completed");
+
+  // Group same-station "waiting"/"arrived" trains so we can show a handful of
+  // icons plus a "+N" badge instead of one icon per train (which could be 60+).
+  const MAX_STACK = 4;
+  const groupByStation = (list: typeof trains) => {
+    const groups = new Map<string, typeof trains>();
+    for (const t of list) {
+      const station = (list === scheduled ? t.to_station : t.from_station) ?? CORRIDOR_ORDER[0];
+      const isDown = t.corridor_direction?.startsWith("DOWN");
+      const key = `${station}-${isDown ? "down" : "up"}`;
+      const arr = groups.get(key) ?? [];
+      arr.push(t);
+      groups.set(key, arr);
+    }
+    return groups;
+  };
 
   return (
     <div className="w-full overflow-x-auto">
@@ -143,6 +161,94 @@ export default function CorridorSchematic({
             );
           })}
         </AnimatePresence>
+
+        {/* Trains waiting to depart (scheduled) and trains that finished today (completed) —
+            shown dimmed near their origin/destination station so the corridor looks fully populated.
+            Each station/direction group shows up to MAX_STACK icons plus a "+N" badge. */}
+        {[...groupByStation(scheduled).entries()].map(([key, group]) => {
+          const [station, dir] = key.split("-");
+          const x = xFor(station);
+          const isDown = dir === "down";
+          const sign = isDown ? -1 : 1;
+          const y = trackY + sign * 8 + sign * 16;
+          const shown = group.slice(0, MAX_STACK);
+          const extra = group.length - shown.length;
+          return (
+            <g key={`sched-${key}`}>
+              {shown.map((t, i) => (
+                <g
+                  key={t.train_number}
+                  transform={`translate(${x + (i - (shown.length - 1) / 2) * 14}, ${y})`}
+                  onClick={() => onSelectTrain?.(t.train_number)}
+                  style={{ cursor: onSelectTrain ? "pointer" : "default" }}
+                  opacity={0.45}
+                >
+                  <circle r={7} fill="#0a0e17" stroke="#64748b" strokeWidth={1.5} strokeDasharray="2,2" />
+                  <text textAnchor="middle" dominantBaseline="central" fontSize={9}>
+                    {trainIcon(t.train_type)}
+                    <title>
+                      {t.train_number} {t.train_name} — waiting to depart {station}
+                    </title>
+                  </text>
+                </g>
+              ))}
+              {extra > 0 && (
+                <text
+                  x={x + (shown.length - (shown.length - 1) / 2) * 14 + 4}
+                  y={y}
+                  textAnchor="start"
+                  dominantBaseline="central"
+                  fontSize={10}
+                  fill="#64748b"
+                >
+                  +{extra}
+                </text>
+              )}
+            </g>
+          );
+        })}
+        {[...groupByStation(completed).entries()].map(([key, group]) => {
+          const [station, dir] = key.split("-");
+          const x = xFor(station);
+          const isDown = dir === "down";
+          const sign = isDown ? -1 : 1;
+          const y = trackY + sign * 8 + sign * 32;
+          const shown = group.slice(0, MAX_STACK);
+          const extra = group.length - shown.length;
+          return (
+            <g key={`done-${key}`}>
+              {shown.map((t, i) => (
+                <g
+                  key={t.train_number}
+                  transform={`translate(${x + (i - (shown.length - 1) / 2) * 14}, ${y})`}
+                  onClick={() => onSelectTrain?.(t.train_number)}
+                  style={{ cursor: onSelectTrain ? "pointer" : "default" }}
+                  opacity={0.3}
+                >
+                  <circle r={7} fill="#0a0e17" stroke="#475569" strokeWidth={1.5} />
+                  <text textAnchor="middle" dominantBaseline="central" fontSize={9}>
+                    {trainIcon(t.train_type)}
+                    <title>
+                      {t.train_number} {t.train_name} — arrived at {station} ({t.current_delay.toFixed(0)}m delay)
+                    </title>
+                  </text>
+                </g>
+              ))}
+              {extra > 0 && (
+                <text
+                  x={x + (shown.length - (shown.length - 1) / 2) * 14 + 4}
+                  y={y}
+                  textAnchor="start"
+                  dominantBaseline="central"
+                  fontSize={10}
+                  fill="#64748b"
+                >
+                  +{extra}
+                </text>
+              )}
+            </g>
+          );
+        })}
       </svg>
     </div>
   );
