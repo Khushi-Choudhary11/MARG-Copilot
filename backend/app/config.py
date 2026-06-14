@@ -14,7 +14,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / "backend" / ".env")
 DATA_DIR = BASE_DIR / "data" / "processed"
 
-MASTER_DATA_PATH = DATA_DIR / "new_final_master_data.csv"
+# Small (~1.3k row) extract of new_final_master_data.csv containing only the
+# demo-day's corridor rows - committed to git so deployments work without
+# needing the full ~130MB dataset. Override with MASTER_DATA_URL to load a
+# larger/different dataset (e.g. a hosted copy of new_final_master_data.csv).
+MASTER_DATA_PATH = DATA_DIR / "demo_day_master_data.csv"
+MASTER_DATA_URL = os.environ.get("MASTER_DATA_URL", "")
 STATIONS_PATH = DATA_DIR / "stations.csv"
 TRAIN_MASTER_PATH = DATA_DIR / "train_master.csv"
 TRAIN_ROUTES_PATH = DATA_DIR / "train_routes.csv"

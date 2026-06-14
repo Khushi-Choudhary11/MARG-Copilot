@@ -1,0 +1,12 @@
+train_type,priority,description
+Rajdhani,1,"Premium fully air-conditioned long-distance, highest precedence"
+Vande Bharat,1,"Premium semi-high-speed train, highest precedence"
+Shatabdi,1,"Premium day AC intercity, highest precedence"
+Duronto,2,Non-stop long-distance superfast
+Garib Rath,2,Budget fully AC superfast
+AC Express,2,Fully air-conditioned express
+Superfast Express,2,Superfast mail/express (avg speed >= 55 km/h)
+Mail/Express,3,Standard mail/express trains
+Passenger,4,"Slow passenger trains, all-stop"
+EMU/DEMU,4,Suburban electric/diesel multiple units
+Goods,5,"Freight trains, lowest precedence"

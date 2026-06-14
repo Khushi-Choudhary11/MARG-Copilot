@@ -107,6 +107,13 @@ assistant falls back to a deterministic template answer on the backend, and
 the frontend additionally tries client-side `puter.js` (loaded via
 `index.html`) for a richer answer.
 
+The live simulation is driven by `data/processed/demo_day_master_data.csv`, a
+small (~350KB, ~1.3k row) extract of `new_final_master_data.csv` containing
+only the demo day's (`DEMO_DATE`) corridor rows. This file is committed to git
+so the app is deployable without the full ~130MB training dataset. To use a
+different/larger dataset, set `MASTER_DATA_URL` to a direct CSV URL (e.g. a
+Google Sheets "Publish to web -> CSV" link, NOT an `/edit` link).
+
 ### Run the frontend
 
 ```bash

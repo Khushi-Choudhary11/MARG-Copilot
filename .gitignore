@@ -4,3 +4,18 @@ frontend/.env
 __pycache__/
 *.pyc
 .venv/
+
+# Large raw/intermediate datasets used only for offline data prep & model
+# training - NOT needed by the running app (backend reads the small
+# data/processed/demo_day_master_data.csv extract instead).
+data/raw/
+data/processed/new_final_master_data.csv
+data/processed/final_master_data.csv
+data/processed/master_training_dataset.csv
+data/processed/master_training_dataset.zip
+data/processed/new_master_training_dataset.csv
+data/processed/new_master_training_dataset.zip
+data/processed/historical_running_status.csv
+data/processed/new_historical_running_status.csv
+data/processed/weather_history.csv
+*.zip

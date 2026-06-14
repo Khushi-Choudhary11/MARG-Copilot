@@ -14,6 +14,7 @@ from app.config import (
     CORRIDOR_STATIONS,
     DEMO_DATE,
     MASTER_DATA_PATH,
+    MASTER_DATA_URL,
     SECTION_INFRA_PATH,
     STATION_INFRA_PATH,
     STATIONS_PATH,
@@ -22,6 +23,15 @@ from app.config import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _read_master_dataset() -> pd.DataFrame:
+    if MASTER_DATA_URL:
+        logger.info("Loading master dataset from URL: %s", MASTER_DATA_URL)
+        return pd.read_csv(MASTER_DATA_URL)
+
+    logger.info("Loading master dataset from local path: %s", MASTER_DATA_PATH)
+    return pd.read_csv(MASTER_DATA_PATH)
 
 
 def _parse_dt(value) -> datetime | None:
@@ -47,7 +57,7 @@ class DataStore:
         self.section_infra = pd.read_csv(SECTION_INFRA_PATH)
 
         logger.info("Loading master dataset for demo date %s...", DEMO_DATE)
-        master = pd.read_csv(MASTER_DATA_PATH)
+        master = _read_master_dataset()
         self.demo_date = DEMO_DATE
         self.demo_rows = master[master["date"] == DEMO_DATE].copy()
         if self.demo_rows.empty:
