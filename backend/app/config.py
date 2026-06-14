@@ -44,7 +44,11 @@ SIM_SPEED = float(os.environ.get("SIM_SPEED", "180"))
 # How often (seconds) the WebSocket broadcasts a fresh twin snapshot.
 TWIN_BROADCAST_INTERVAL = float(os.environ.get("TWIN_BROADCAST_INTERVAL", "3"))
 
-CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173,http://localhost:5183").split(",")
+CORS_ORIGINS = os.environ.get(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:5183,"
+    "https://marg-copliot-intergrated.vercel.app",
+).split(",")
 
 # Optional - if unset, /api/ai endpoints fall back to template-based
 # explanations and the frontend falls back to puter.js client-side AI.
