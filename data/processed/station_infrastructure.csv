@@ -1,0 +1,7 @@
+station_code,station_name,platforms,main_tracks,loop_lines,junction_flag,station_category,source,electrified,traction_type,gauge
+NDLS,New Delhi,16,20,8,1,A1,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)
+GZB,Ghaziabad Jn,6,13,6,1,A1,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)
+ALJN,Aligarh Jn,7,4,4,1,NSG3,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)
+TDL,Tundla Jn,7,4,4,1,A,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)
+ETW,Etawah Jn,5,2,3,1,B,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)
+CNB,Kanpur Central,10,28,6,1,A1,wikipedia+curated+enriched,1,25kV AC (electrified),Broad Gauge (1676mm)

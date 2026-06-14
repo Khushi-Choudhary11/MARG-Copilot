@@ -1,0 +1,6 @@
+from_station,to_station,num_tracks,line_type,section_length_km,source,electrified,traction_type,gauge,max_speed_kmh
+NDLS,GZB,4,Multi (Quadruple),25,curated_estimate+enriched,1,25kV AC (electrified),Broad Gauge (1676mm),130
+GZB,ALJN,3,"Multi (Triple, partially quad near GZB)",124,curated_estimate+enriched,1,25kV AC (electrified),Broad Gauge (1676mm),130
+ALJN,TDL,2,Double,81,curated_estimate+enriched,1,25kV AC (electrified),Broad Gauge (1676mm),130
+TDL,ETW,2,Double,100,curated_estimate+enriched,1,25kV AC (electrified),Broad Gauge (1676mm),120
+ETW,CNB,2,Double,80,curated_estimate+enriched,1,25kV AC (electrified),Broad Gauge (1676mm),120
