@@ -4,6 +4,21 @@
 
 ---
 
+## What it does
+
+Section controllers on Indian Railways decide train precedence and crossings by experience. MARG is a decision-support "co-pilot" that replays a corridor as a **digital twin**, predicts delays, and recommends re-sequencing when something goes wrong.
+
+- **Control tower UI:** live map, congestion heat, recommendations and a disruption injector (React, Leaflet, Tailwind)
+- **Simulation:** replays official timetable data at 60x speed
+- **Delay prediction:** PyTorch model with a heuristic fallback (30, 60 and 120 minute horizons)
+- **Optimisation:** OR-Tools CP-SAT proposes train sequencing that reduces delay
+- **Explanations:** Claude API gives plain-language reasons, with a template fallback
+- **Auth and transport:** JWT-secured REST and WebSocket APIs
+
+**Stack:** FastAPI, Python, React, TypeScript, Vite, OR-Tools, PyTorch.
+
+---
+
 ## Prerequisites
 
 | Tool | Version | Install |
